@@ -31,14 +31,14 @@ public class AddressBookService {
         return book;
     }
 
-    public void addEntryToBook(int bookId, EntryDto dto){
+    public AddressBook addEntryToBook(int bookId, EntryDto dto){
         EntryMapper mapper = Mappers.getMapper(EntryMapper.class);
         BookEntry entry = mapper.dtoToEntity(dto);
         Optional<AddressBook> optBook = bookRepository.findById(bookId);
         if(optBook.isPresent()){
             AddressBook book = optBook.get();
             book.addEntry(entry);
-            bookRepository.save(book);
+            return bookRepository.save(book);
         }else {
             throw new NotFoundException(String.format("Book Id {} Not Found", bookId));
         }
