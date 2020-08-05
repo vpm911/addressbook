@@ -1,10 +1,14 @@
 package com.book.addressbook.service;
 
+import com.book.addressbook.dto.EntryDto;
 import com.book.addressbook.entity.AddressBook;
 import com.book.addressbook.entity.BookEntry;
 import com.book.addressbook.exception.NotFoundException;
+import com.book.addressbook.mapper.EntryMapper;
 import com.book.addressbook.repository.AddressBookRepository;
 import lombok.extern.log4j.Log4j2;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,7 +31,9 @@ public class AddressBookService {
         return book;
     }
 
-    public void addEntryToBook(int bookId, BookEntry entry){
+    public void addEntryToBook(int bookId, EntryDto dto){
+        EntryMapper mapper = Mappers.getMapper(EntryMapper.class);
+        BookEntry entry = mapper.dtoToEntity(dto);
         Optional<AddressBook> optBook = bookRepository.findById(bookId);
         if(optBook.isPresent()){
             AddressBook book = optBook.get();
@@ -46,7 +52,6 @@ public class AddressBookService {
             throw new NotFoundException(String.format("Book id {} Not Found", bookId));
         }
     }
-
 
     public List<AddressBook> getAllBooks() {
         return (List) bookRepository.findAll();

@@ -1,12 +1,16 @@
 package com.book.addressbook.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class ErrorResponse {
 
+    public ErrorResponse(){
+    }
+    public ErrorResponse(String message, Object body){
+        this.message=message;
+        this.body=body;
+    }
     String message;
-    Exception ex;
+    Object body;
 }
