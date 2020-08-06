@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Data
 @Entity
 @ToString
-public class BookEntry {
+public class BookEntry extends AbstractAuditedEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

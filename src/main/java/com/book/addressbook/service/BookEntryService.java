@@ -29,4 +29,8 @@ public class BookEntryService {
             throw new NotFoundException(String.format("Entry Id {} was not found",id));
         }
     }
+
+    public void deleteEntry(int entryId) {
+        entryRepository.deleteById(entryId);
+    }
 }

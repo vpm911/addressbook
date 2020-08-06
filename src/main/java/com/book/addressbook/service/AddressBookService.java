@@ -56,4 +56,8 @@ public class AddressBookService {
     public List<AddressBook> getAllBooks() {
         return (List) bookRepository.findAll();
     }
+
+    public void deleteBook(int bookId) {
+        bookRepository.deleteById(bookId);
+    }
 }

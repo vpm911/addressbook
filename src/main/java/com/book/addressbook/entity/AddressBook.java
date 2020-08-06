@@ -3,8 +3,10 @@ package com.book.addressbook.entity;
 import lombok.Data;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -13,7 +15,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class AddressBook {
+public class AddressBook extends AbstractAuditedEntity{
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -23,12 +25,6 @@ public class AddressBook {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<BookEntry> entryList;
-
-    @CreatedDate
-    private Instant createdAt;
-
-    @LastModifiedDate
-    private Instant lastModifiedAt;
 
     public AddressBook(){
         this.entryList = new ArrayList<>();
@@ -45,7 +41,6 @@ public class AddressBook {
         return "AddressBook{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", createdAt=" + createdAt +
                 '}';
     }
 }
